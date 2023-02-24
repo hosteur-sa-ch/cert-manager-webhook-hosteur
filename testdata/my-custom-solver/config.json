@@ -1,0 +1,8 @@
+{
+    "apiEndpoint": "https://api.hosteur.com",
+    "apiKeySecretRef": {
+        "Name": "api.hosteur.com-credentials",
+        "Key": "K_KEY"
+    },
+    "clientID": "73430"
+}

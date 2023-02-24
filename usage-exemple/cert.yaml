@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-cert
+spec:
+  secretName: test-cert
+  dnsNames:
+    - chad666.net
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-cert2
+spec:
+  secretName: test-cert
+  dnsNames:
+    - test.chad666.net
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
