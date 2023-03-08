@@ -6,8 +6,8 @@ Hosteur ACME WebHook
 
 **Before you install you need to create Hosteur Issuer Secret**
 
-CLIENTID is you Hosteur's Client ID 
-APIKEY can be found from Hosteur's Manager > Gestion des comptes > Informations Personnelles
+* CLIENTID is you Hosteur's Client ID 
+* APIKEY can be found from Hosteur's Manager > Gestion des comptes > Informations Personnelles
 
 ![img](res/img/Screenshot_20230308_104149.png)
 
