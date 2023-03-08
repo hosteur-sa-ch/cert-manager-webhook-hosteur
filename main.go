@@ -65,8 +65,8 @@ type hosteurDNSProviderConfig struct {
 	//Email           string `json:"email"`
 	//APIKeySecretRef v1alpha1.SecretKeySelector `json:"apiKeySecretRef"`
 	APIEndpoint     string                  `json:"apiEndpoint"`
+	APIClientIDSecretRef apiv1.SecretKeySelector `json:"apiClientIDSecretRef"`
 	APIKeySecretRef apiv1.SecretKeySelector `json:"apiKeySecretRef"`
-	FK_CLIENT       string                  `json:"clientID"`
 }
 
 // Name is used as the name for this DNS solver when referencing it on the ACME
@@ -91,6 +91,20 @@ func (c *hosteurDNSProviderSolver) Present(ch *v1alpha1.ChallengeRequest) error 
 		return err
 	}
 
+	APIClientIDSecret, err := c.client.CoreV1().Secrets(ch.ResourceNamespace).Get(context.TODO(), cfg.APIClientIDSecretRef.Name, v1.GetOptions{})
+	if err != nil {
+		println(err.Error())
+		return err
+	}
+
+	FK_ClientBytes, ok := APIClientIDSecret.Data[cfg.APIClientIDSecretRef.Key]
+	if !ok {
+		println("no secret")
+		return nil
+	}
+
+	FK_CLIENT := string(FK_ClientBytes)
+
 	APIKeySecret, err := c.client.CoreV1().Secrets(ch.ResourceNamespace).Get(context.TODO(), cfg.APIKeySecretRef.Name, v1.GetOptions{})
 	if err != nil {
 		println(err.Error())
@@ -105,7 +119,7 @@ func (c *hosteurDNSProviderSolver) Present(ch *v1alpha1.ChallengeRequest) error 
 
 	K_KEY := string(K_KEYBytes)
 
-	hstApiClient := NewHstApiClient(cfg.FK_CLIENT, K_KEY, cfg.APIEndpoint)
+	hstApiClient := NewHstApiClient(FK_CLIENT, K_KEY, cfg.APIEndpoint)
 
 	//code that sets a record in the DNS provider's console
 
@@ -134,6 +148,20 @@ func (c *hosteurDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error 
 		return err
 	}
 
+	APIClientIDSecret, err := c.client.CoreV1().Secrets(ch.ResourceNamespace).Get(context.TODO(), cfg.APIClientIDSecretRef.Name, v1.GetOptions{})
+	if err != nil {
+		println(err.Error())
+		return err
+	}
+
+	FK_ClientBytes, ok := APIClientIDSecret.Data[cfg.APIClientIDSecretRef.Key]
+	if !ok {
+		println("no secret")
+		return nil
+	}
+
+	FK_CLIENT := string(FK_ClientBytes)
+
 	APIKeySecret, err := c.client.CoreV1().Secrets(ch.ResourceNamespace).Get(context.TODO(), cfg.APIKeySecretRef.Name, v1.GetOptions{})
 	if err != nil {
 		println(err.Error())
@@ -148,7 +176,7 @@ func (c *hosteurDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error 
 
 	K_KEY := string(K_KEYBytes)
 
-	hstApiClient := NewHstApiClient(cfg.FK_CLIENT, K_KEY, cfg.APIEndpoint)
+	hstApiClient := NewHstApiClient(FK_CLIENT, K_KEY, cfg.APIEndpoint)
 
 	// TODO: add code that sets a record in the DNS provider's console
 

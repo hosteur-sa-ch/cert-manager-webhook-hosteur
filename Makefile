@@ -3,7 +3,7 @@ OS ?= $(shell $(GO) env GOOS)
 ARCH ?= $(shell $(GO) env GOARCH)
 
 IMAGE_NAME := "nexus-docker-gitdoc.hosteur.network/cert-manager-webhook-hosteur"
-IMAGE_TAG := "0.4"
+IMAGE_TAG := "0.5"
 
 OUT := $(shell pwd)/_out
 

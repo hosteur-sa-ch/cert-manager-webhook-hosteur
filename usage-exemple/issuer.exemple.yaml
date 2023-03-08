@@ -15,7 +15,9 @@ spec:
           solverName: hosteur-dns-solver
           config:
             apiEndpoint: "https://api.hosteur.com"
-            clientID: "73430"
+            apiClientIDSecretRef:
+              Name: "api.hosteur.com-credentials"
+              Key:  "ClientID"
             apiKeySecretRef:
               Name: "api.hosteur.com-credentials"
               Key:  "K_KEY"
@@ -27,4 +29,5 @@ metadata:
   namespace: cert-manager
 type: Opaque
 data:
+  ClientID: "<base64 api ClientID>"
   K_KEY: "<base64 api key>"
