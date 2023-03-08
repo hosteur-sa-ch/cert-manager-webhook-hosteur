@@ -13,9 +13,9 @@ certManager:
   serviceAccountName: cert-manager
 
 image:
-  repository: nexus-docker-gitdoc.hosteur.network/cert-manager-webhook-hosteur
-  tag: 0.4
-  pullPolicy: Always #IfNotPresent
+  repository: hosteurdkuser/cert-manager-webhook-hosteur:latest
+  tag: latest
+  pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""
