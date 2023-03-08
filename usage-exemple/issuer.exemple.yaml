@@ -17,10 +17,10 @@ spec:
             apiEndpoint: "https://api.hosteur.com"
             apiClientIDSecretRef:
               Name: "api.hosteur.com-credentials"
-              Key:  "ClientID"
+              Key:  "CLIENTID"
             apiKeySecretRef:
               Name: "api.hosteur.com-credentials"
-              Key:  "K_KEY"
+              Key:  "CLIENTID"
 ---
 apiVersion: v1
 kind: Secret
@@ -29,5 +29,5 @@ metadata:
   namespace: cert-manager
 type: Opaque
 data:
-  ClientID: "<base64 api ClientID>"
-  K_KEY: "<base64 api key>"
+  CLIENTID: "<base64 api ClientID>"
+  APIKEY: "<base64 api key>"
