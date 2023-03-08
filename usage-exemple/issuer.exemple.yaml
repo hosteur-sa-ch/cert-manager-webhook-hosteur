@@ -20,7 +20,7 @@ spec:
               Key:  "CLIENTID"
             apiKeySecretRef:
               Name: "api.hosteur.com-credentials"
-              Key:  "CLIENTID"
+              Key:  "APIKEY"
 ---
 apiVersion: v1
 kind: Secret
